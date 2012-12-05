@@ -6,9 +6,9 @@ kz=[1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 15.0, 20.0, 25.0, 30.0, 3
 N=512;
 Re=10000;
 Fh=0.1;
-end_times=12;
+end_times=40;
 
 for i=kz
-    profile_plots(i,Fh,Re,N,12)
+    profile_plots(i,Fh,Re,N,end_times)
     close all;
 end

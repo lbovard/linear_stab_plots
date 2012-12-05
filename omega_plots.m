@@ -6,11 +6,14 @@ velocity_plots=0;
 %kz_array=[10,6,15,40];
 
 %for second peak
-kz_array=[20,35,45,50];
-
+%kz_array=[20,35,45,50];
+kz_array=[50,50,50];
+%kz_array=[120,120,120];
+%kz_array=[55,60,65];
+%kz_array=[7,20,40];
 %Fh=0.2;
-Fh_array=[100000, 0.2,0.1,0.05];
-Re=10000;
+Fh_array=[0.2,0.1,0.05];
+Re=20000;
 N=512;
 end_time=10;
 %generate grid
@@ -72,7 +75,7 @@ k_x=2*pi/L*repmat([0:N/2 -N/2+1:-1],N,1);
 k_y=k_x';
 omega=ifft2(1i*k_x.*fft2(D{2})-1i*k_y.*fft2(D{1}));
 ftitle=strcat('Omega ',num2str(kz),'fh=',num2str(Fh));
-subplot(2,2,ll)
+subplot(3,1,ll)
 surf(X,Y,real(omega),'EdgeColor','none')
 %contour(X,Y,real(omega),10)
 %axis([-L/2 L/2 -L/2 L/2])

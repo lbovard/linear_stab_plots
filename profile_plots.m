@@ -11,7 +11,7 @@ L=9;dx=L/N;
 x=-L/2+dx*(1:N);
 y=x';
 [X,Y]=meshgrid(x,y);
-
+data=zeros(N,N);
 S={'u' 'v' 'w' 'rho'};
 TT={'Real ','Imag '};
 T={strcat('Real',num2str(kz),'fh=',num2str(Fh)), strcat('Imag',num2str(kz),'fh=',num2str(Fh))};
@@ -41,12 +41,19 @@ for j=1:2
         fname=[TT{j},S{i}];
         subplot(2,2,i)
         if(j==1)
-            surf(X,Y,real(D{i}),'EdgeColor','none')
+            data=real(D{i});
+            data=data/max(max(data));
+            %surf(X,Y,real(D{i}),'EdgeColor','none')
+            surf(X,Y,data,'EdgeColor','none')
         else
-            surf(X,Y,imag(D{i}),'EdgeColor','none')
+            data=imag(D{i});
+            data=data/max(max(data));
+            %surf(X,Y,imag(D{i}),'EdgeColor','none')
+            surf(X,Y,data,'EdgeColor','none')
         end
         view(2)
         axis square
+        caxis([-1 1])
         axis([-L/2 L/2 -L/2 L/2])
         title(fname)
     end
@@ -55,17 +62,25 @@ end
 k_x=2*pi/L*repmat([0:N/2 -N/2+1:-1],N,1);
 k_y=k_x';
 omega=ifft2(1i*k_x.*fft2(D{2})-1i*k_y.*fft2(D{1}));
+%omega=omega/max(max(omega));
 
+data=real(omega);
+data=data/max(max(data));
 ftitle=strcat('Omega ',num2str(kz),'fh=',num2str(Fh));
 h=figure('name',ftitle,'numbertitle','off');
 subplot(1,2,1)
-surf(X,Y,real(omega),'EdgeColor','none')
+%surf(X,Y,real(omega),'EdgeColor','none')
+surf(X,Y,data,'EdgeColor','none')
 axis([-L/2 L/2 -L/2 L/2])
+caxis([-1 1])
 title('Real \omega')
 view(2)
 subplot(1,2,2)
-surf(X,Y,imag(omega),'EdgeColor','none')
+data=imag(omega);
+data=data/max(max(data));
+surf(X,Y,data,'EdgeColor','none')
 axis([-L/2 L/2 -L/2 L/2])
+caxis([-1 1])
 view(2)
 title('Imag \omega')
 print(h,'-dpng',ftitle);
