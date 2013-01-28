@@ -1,4 +1,4 @@
 linear_stab_plots
 =================
 
-linear stability plots
+linear stability routines 

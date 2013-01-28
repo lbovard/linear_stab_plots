@@ -14,7 +14,7 @@ j=1;
 i=1;
 %get dt, make better
 sigma_name=strcat('kz.',num2str(i),'.0.sigma.',num2str(N),'.re.',num2str(Re),'.0.fh.',num2str(Fh),'.dat');
-totE_name=strcat('kz.',num2str(i),'.0.sigma.',num2str(N),'.re.',num2str(Re),'.0.fh.',num2str(Fh),'.dat');
+totE_name=strcat('kz.',num2str(i),'.0.totE.',num2str(N),'.re.',num2str(Re),'.0.fh.',num2str(Fh),'.dat');
 kz_temp=dlmread(sigma_name);
 totE_tmep=dlmread(totE_name);
 dt=mean((totE_tmep(2:end)-totE_tmep(1:end-1))./kz_temp(1:end-1));
@@ -27,6 +27,7 @@ for i=kz
     results(j,2)=get_sigma(sigma_name,totE_name,dt);
     j=j+1;
 end
+results=sortrows(results);
 dlmwrite('fh0.1.re10000.512_hyper.dat',results,'precision',15);
 %dlmread('kz.1.0.sigma.512.re.10000.0.fh.0.1.');
 %dlmread('kz.10.0.sigma.512.re.10000.0.fh.0.1.');

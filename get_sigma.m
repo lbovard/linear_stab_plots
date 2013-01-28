@@ -1,13 +1,14 @@
-%close all;
-%clear all;
-function sigma=get_sigma(sigma_name,totE_name,dt)
-%i=36;
-%sigma_name=strcat('kz.',num2str(i),'.0.sigma.512.re.20000.0.fh.0.05.')
-%totE_name=strcat('kz.',num2str(i),'.0.totE.512.re.20000.0.fh.0.05.');
-kz=dlmread(sigma_name);
-totE=dlmread(totE_name);
-%dt=0.0019/2;
-%dt=0.00075/2;
+function sigma=get_sigma(sigma_fname,totE_fname,dt)
+% get the growth rate sigma from the growth rate time series data
+% if there are oscillations spit out oscillation error and use energy
+% data to get growth rate
+%
+% sigma_fname ~ sigma time series file name
+% totE_fname ~ energy time series file name
+% dt ~ timestep
+
+kz=dlmread(sigma_fname);
+totE=dlmread(totE_fname);
 %ignore first 20% of data
 ig=0.2;
 N=floor(ig*length(kz));
@@ -89,11 +90,4 @@ else %no oscillations and no nans, take last 20% of data to average
     %take the average of the last 20%
     sigma=mean(kz(floor((0.9)*N):end));
 end
-
-%plot(kz)
-%hold on
-%plot(maximums(:,2),maximums(:,1),'r*')
-%plot(minimums(:,2),minimums(:,1),'r*')
-%axis([0 N -2 2])
-
 end
